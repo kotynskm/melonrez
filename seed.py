@@ -26,7 +26,7 @@ def load_users():
 def load_reservations():
     """ Load reservations into the database. """
     
-    cantaloupe = model.Reservation.create_rez(user_id=1, start_date=datetime.strptime("2022-08-01", "%Y-%m-%d"), end_date=datetime.strptime("2022-08-02", "%Y-%m-%d"), rez_name="cantaloupes")
+    cantaloupe = model.Reservation.create_rez(user_id=1, start_date=datetime.strptime("2022-08-01", "%Y-%m-%d"), rez_name="cantaloupes")
 
     model.db.session.add_all(cantaloupe)
     model.db.session.commit()

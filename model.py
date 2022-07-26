@@ -43,7 +43,6 @@ class Reservation(db.Model):
     rez_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     start_date = db.Column(db.DateTime, nullable=False)
-    end_date = db.Column(db.DateTime, nullable=False)
     rez_name = db.Column(db.String)
 
     # relationship to user
@@ -53,9 +52,9 @@ class Reservation(db.Model):
         return f'<Reservation {self.rez_name}, User ID {self.user_id}>'
 
     @classmethod
-    def create_rez(cls, user_id, start_date, end_date, rez_name):
+    def create_rez(cls, user_id, start_date, rez_name):
         """ Create a reservation. """
-        return cls(user_id=user_id, start_date=start_date, end_date=end_date, rez_name=rez_name)
+        return cls(user_id=user_id, start_date=start_date, rez_name=rez_name)
 
 
 

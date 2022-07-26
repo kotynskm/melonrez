@@ -27,6 +27,7 @@ def login():
 
     return redirect('/homepage')
 
+# --- display homepage for user ---
 @app.route('/homepage')
 def user_page():
     """ Display users homepage. """
@@ -35,11 +36,23 @@ def user_page():
 
     return render_template('homepage.html', user=user)
 
+# --- calendar display ---
 @app.route('/calendar')
 def show_calendar():
     """ View calendar page. """
 
     return render_template('calendar.html')
+
+# --- search reservations ---
+@app.route('/search')
+def get_reservations():
+    date = request.args.get('start_date')
+    # convert date string to date
+    date_converted = datetime.strptime(date, '%Y-%m-%d')
+    print(date)
+    print(date_converted)
+
+    return render_template('reservations.html')
 
 
 if __name__ == '__main__':

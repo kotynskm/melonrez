@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from random import choice
 import json
 
-reservation_list = ['2022-07-26']
+reservation_list = [{'date': '2022-07-26', 'name': 'cantaloupes'}, {'date': '2022-08-26', 'name': 'watermelons'}]
 
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
@@ -49,8 +49,6 @@ def get_reservations():
     date = request.args.get('start_date')
     # convert date string to date
     date_converted = datetime.strptime(date, '%Y-%m-%d')
-    print(date)
-    print(date_converted)
 
     return render_template('reservations.html')
 

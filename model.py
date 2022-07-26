@@ -4,7 +4,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-class User(db.model):
+class User(db.Model):
     """ Data model for a user. """
 
     __tablename__ = 'users'
@@ -16,7 +16,7 @@ class User(db.model):
     reservations = db.relationship('Reservation', backref='user')
 
 
-class Reservation(db.model):
+class Reservation(db.Model):
     """ Data model for a reservation. """
 
     __tablename__ = 'reservations'

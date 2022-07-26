@@ -20,9 +20,9 @@ class User(db.Model):
         return f'<User {self.email}, ID {self.user_id}>'
 
     @classmethod
-    def create_user(cls, email):
+    def create_user(cls, user_id, email):
         """ Create a user. """
-        return cls(email=email)
+        return cls(user_id=user_id, email=email)
 
     @classmethod
     def get_by_email(cls, email):

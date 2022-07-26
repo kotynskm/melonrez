@@ -3,6 +3,15 @@
 {% block content %}
 
     <h1>Reservations</h1>
+    <ul>
+        {% if not data %}
+        <li>No reservations available for the selected date</li>
+        {% endif %}
+        
+        {% for item in data %}
+        <li>{{ item.name }} is at {{ item.date }}</li>
+        {% endfor %}
+    </ul>
 
     
 {% endblock %}

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from random import choice
 import json
 
-reservation_list = [{'date': '2022-07-26', 'name': 'cantaloupes'}, {'date': '2022-08-26', 'name': 'watermelons'}]
+RESERVATIONS = [{'date': '2022-07-26', 'name': 'cantaloupes'}, {'date': '2022-08-26', 'name': 'watermelons'}]
 
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
@@ -46,11 +46,16 @@ def show_calendar():
 # --- search reservations ---
 @app.route('/search')
 def get_reservations():
+    data = []
     date = request.args.get('start_date')
     # convert date string to date
     date_converted = datetime.strptime(date, '%Y-%m-%d')
-
-    return render_template('reservations.html')
+    
+    for res in RESERVATIONS:
+        if res['date'] == date:
+            data.append({'date': res['date'], 'name': res['name']})
+            
+    return render_template('reservations.html', data=data)
 
 
 if __name__ == '__main__':

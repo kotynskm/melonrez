@@ -1,8 +1,6 @@
 """ Data models for Melon Reservation app. """
-from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from sqlalchemy import nullslast
 
 db = SQLAlchemy()
 
@@ -14,15 +12,23 @@ class User(db.model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(40), nullable=False, unique=True)
 
+    # relationship to reservations
+    reservations = db.relationship('Reservation', backref='user')
 
 
+class Reservation(db.model):
+    """ Data model for a reservation. """
 
+    __tablename__ = 'reservations'
 
+    rez_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    rez_name = db.Column(db.String)
 
-
-
-
-
+    # relationship to user
+    # reservations = db.relationship('Reservation', backref='user')
 
 
 

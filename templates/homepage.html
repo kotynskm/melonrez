@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melon Reservations</title>
-</head>
-<body>
+{% extends 'login.html' %}
+
+
+
+{% block body %}
+
     <h1>This is the homepage</h1>
 
     <h2>Current Scheduled Reservations</h2>
@@ -17,6 +14,4 @@
     <input type="time" id="start_time" name="start_time">
     </form>
 
-
-</body>
-</html>
+{% endblock %}

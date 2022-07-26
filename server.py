@@ -35,6 +35,11 @@ def user_page():
 
     return render_template('homepage.html', user=user)
 
+@app.route('/calendar')
+def show_calendar():
+    """ View calendar page. """
+
+    return render_template('calendar.html')
 
 
 if __name__ == '__main__':

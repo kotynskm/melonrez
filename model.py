@@ -1,4 +1,5 @@
 """ Data models for Melon Reservation app. """
+import re
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -12,8 +13,26 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(40), nullable=False, unique=True)
 
-    # relationship to reservations
+     # relationship to reservations
     reservations = db.relationship('Reservation', backref='user')
+
+    def __repr__(self):
+        return f'<User {self.email}, ID {self.user_id}>'
+
+    @classmethod
+    def create_user(cls, email):
+        """ Create a user. """
+        return cls(email=email)
+
+    @classmethod
+    def get_by_email(cls, email):
+        """ Get user by email. """
+        return cls.query.filter(User.email == email).first()
+
+    @classmethod
+    def get_by_id(cls, user_id):
+        """ Get user by ID. """
+        return cls.query.get(user_id)
 
 
 class Reservation(db.Model):
@@ -30,6 +49,13 @@ class Reservation(db.Model):
     # relationship to user
     # reservations = db.relationship('Reservation', backref='user')
 
+    def __repr__(self):
+        return f'<Reservation {self.rez_name}, User ID {self.user_id}>'
+
+    @classmethod
+    def create_rez(cls, user_id, start_date, end_date, rez_name):
+        """ Create a reservation. """
+        return cls(user_id=user_id, start_date=start_date, end_date=end_date, rez_name=rez_name)
 
 
 

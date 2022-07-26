@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from random import choice
 import json
 
+reservation_list = ['one','two','three']
+
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
 

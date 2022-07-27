@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from random import choice
 import json
 
-RESERVATIONS = [{'date': '2022-07-26', 'name': 'cantaloupes'}, {'date': '2022-08-26', 'name': 'watermelons'}]
+RESERVATIONS = [{'date': '2022-07-26', 'name': 'Cantaloupe Tasting'}, {'date': '2022-08-26', 'name': 'Watermelon Tasting'}]
 
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
@@ -33,6 +33,8 @@ def user_page():
     """ Display users homepage. """
     user_id = session['user_id']
     user = User.get_by_id(user_id)
+    print(user)
+    print(user.reservations)
 
     return render_template('homepage.html', user=user)
 
@@ -50,12 +52,26 @@ def get_reservations():
     date = request.args.get('start_date')
     # convert date string to date
     date_converted = datetime.strptime(date, '%Y-%m-%d')
-    
+
     for res in RESERVATIONS:
         if res['date'] == date:
             data.append({'date': res['date'], 'name': res['name']})
             
     return render_template('reservations.html', data=data)
+
+@app.route('/create_rez', methods=['POST'])
+def create_reservation():
+    """ Create a reservation for the user. """
+    user_id = session['user_id']
+
+    res = request.form.get('reservation')
+    info = res.split(',')
+
+    reservation = Reservation.create_rez(user_id, info[0], info[1])
+    db.session.add(reservation)
+    db.session.commit()
+    
+    return redirect('/homepage')
 
 
 if __name__ == '__main__':

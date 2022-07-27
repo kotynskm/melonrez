@@ -7,9 +7,14 @@
         {% if not data %}
         <li>No reservations available for the selected date</li>
         {% endif %}
-        
+
         {% for item in data %}
-        <li>{{ item.name }} is at {{ item.date }}</li>
+        <li>{{ item.name }} is at {{ item.date }}
+            <form action="/create_rez" method="POST">
+            <input type="checkbox" name="reservation" value="{{ item.date }},{{ item.name }}">
+            <button type="submit">Submit</button>
+            </form>
+        </li>
         {% endfor %}
     </ul>
 

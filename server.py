@@ -33,8 +33,6 @@ def user_page():
     """ Display users homepage. """
     user_id = session['user_id']
     user = User.get_by_id(user_id)
-    print(user)
-    print(user.reservations)
 
     return render_template('homepage.html', user=user)
 

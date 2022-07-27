@@ -59,6 +59,7 @@ def get_reservations():
             
     return render_template('reservations.html', data=data)
 
+# --- add reservation to user ---
 @app.route('/create_rez', methods=['POST'])
 def create_reservation():
     """ Create a reservation for the user. """
@@ -72,6 +73,24 @@ def create_reservation():
     db.session.commit()
     
     return redirect('/homepage')
+
+# --- add reservation to calendar ---
+@app.route('/update_calendar')
+def display_reservations():
+    """ Get JSON data for calendar. """
+    user_id = session['user_id']
+    user = User.get_by_id(user_id)
+    reservations = []
+
+    for res in user.reservations:
+        
+        reservations.append({
+            'title': res.rez_name,
+            'start': res.start_date.strftime("%Y-%m-%d")
+        })
+    
+    return jsonify(reservations)
+
 
 
 if __name__ == '__main__':

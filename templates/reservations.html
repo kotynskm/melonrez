@@ -4,6 +4,14 @@
 
 <div class="container">
     <h1>Reservations</h1>
+
+     <!-- Flash messages -->
+     <div class="flash_msg">
+        {% for msg in get_flashed_messages() %}
+            <span>{{ msg }}</span>
+        {% endfor %}
+        </div>
+
     <ul>
         {% if not data %}
         <li>No reservations available for the selected date</li>

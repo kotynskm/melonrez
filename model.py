@@ -50,12 +50,17 @@ class Reservation(db.Model):
     # reservations = db.relationship('Reservation', backref='user')
 
     def __repr__(self):
-        return f'<Reservation {self.rez_name}, User ID {self.user_id}>'
+        return f'<Reservation {self.rez_name}, User ID {self.user_id}, Start Date {self.start_date}>'
 
     @classmethod
     def create_rez(cls, user_id, start_date, start_time, rez_name):
         """ Create a reservation. """
         return cls(user_id=user_id, start_date=start_date, start_time=start_time, rez_name=rez_name)
+
+    @classmethod
+    def get_by_id(cls, rez_id):
+        """ Get rez by ID. """
+        return cls.query.get(rez_id)
 
 
 

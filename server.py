@@ -63,15 +63,23 @@ def get_reservations():
 def create_reservation():
     """ Create a reservation for the user. """
     user_id = session['user_id']
+    user = User.get_by_id(user_id)
+    user_reservations = user.reservations
 
     res = request.form.get('reservation')
     info = res.split(',')
+    res_date = info[0]
 
-    reservation = Reservation.create_rez(user_id, info[0], info[1], info[2])
-    db.session.add(reservation)
-    db.session.commit()
+    for res in user_reservations:
+        if res.start_date != res_date: 
+            reservation = Reservation.create_rez(user_id, info[0], info[1], info[2])
+            db.session.add(reservation)
+            db.session.commit()
+            return redirect('/homepage')
+        else:
+            flash("Reservation on that date already exists!")
     
-    return redirect('/homepage')
+    return redirect('/reservations')
 
 # --- add reservation to calendar ---
 @app.route('/update_calendar')
@@ -94,6 +102,19 @@ def display_reservations():
 @app.route('/home')
 def return_home():
     """ Return to the homepage. """
+
+    return redirect('/homepage')
+
+# --- delete a reservation ---
+@app.route('/delete_rez', methods=['POST'])
+def delete_rez():
+    """ Delete a reservation. """
+    rez_id = request.form.get('rez_id')
+
+    reservation = Reservation.get_by_id(rez_id)
+
+    db.session.delete(reservation)
+    db.session.commit()
 
     return redirect('/homepage')
 

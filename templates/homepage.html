@@ -5,6 +5,13 @@
 <div class="container">
     <h1>Welcome, {{ user.email }}!</h1>
 
+         <!-- Flash messages -->
+         <div class="flash_msg">
+            {% for msg in get_flashed_messages() %}
+                <span>{{ msg }}</span>
+            {% endfor %}
+            </div>
+
     <h2>Current Scheduled Reservations</h2>
     <ul>
     {% if not user.reservations %}

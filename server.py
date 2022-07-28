@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, jsonify, flash
 import requests
 from model import User, Reservation, connect_to_db, db
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from random import choice
 import json
 
@@ -49,8 +49,6 @@ def show_calendar():
 def get_reservations():
     data = []
     date = request.args.get('start_date')
-    # convert date string to date
-    date_converted = datetime.strptime(date, '%Y-%m-%d')
 
     for res in RESERVATIONS:
         if res['date'] == date:
@@ -65,21 +63,25 @@ def create_reservation():
     user_id = session['user_id']
     user = User.get_by_id(user_id)
     user_reservations = user.reservations
+    date_list = []
 
+    # add user's reservation dates to a list
+    for rez in user_reservations:
+        date_list.append(rez.start_date.strftime('%Y-%m-%d'))
+    # get the date from the form for the new reservation
     res = request.form.get('reservation')
     info = res.split(',')
     res_date = info[0]
-
-    for res in user_reservations:
-        if res.start_date != res_date: 
-            reservation = Reservation.create_rez(user_id, info[0], info[1], info[2])
-            db.session.add(reservation)
-            db.session.commit()
-            return redirect('/homepage')
-        else:
-            flash("Reservation on that date already exists!")
-    
-    return redirect('/reservations')
+    # check if the new reservation date is in the user's date list
+    if res_date in date_list:
+        flash("That reservation already exists! Sorry, please try another date.")
+        return redirect('/homepage')
+    else:
+        reservation = Reservation.create_rez(user_id, info[0], info[1], info[2])
+        db.session.add(reservation)
+        db.session.commit()
+        
+        return redirect('/homepage')
 
 # --- add reservation to calendar ---
 @app.route('/update_calendar')

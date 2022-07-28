@@ -12,7 +12,7 @@
     {% endif %}
 
     {% for reservation in user.reservations %}
-    <li>{{ reservation.rez_name }} scheduled on {{ reservation.start_date }}</li>
+    <li>{{ reservation.rez_name }} scheduled on {{ reservation.start_date }} at {{ reservation.start_time }}</li>
     {% endfor %}
     </ul>
 

@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from random import choice
 import json
 
-RESERVATIONS = [{'date': '2022-07-26', 'name': 'Cantaloupe Tasting'}, {'date': '2022-08-26', 'name': 'Watermelon Tasting'},
-{'date': '2022-08-01', 'name': 'Durian Tasting'},{'date': '2022-09-15', 'name': 'Densuke Tasting'}]
+RESERVATIONS = [{'date': '2022-07-26', 'time': '18:00:00', 'name': 'Cantaloupe Tasting'}, {'date': '2022-08-26', 'time': '19:00:00', 'name': 'Watermelon Tasting'},
+{'date': '2022-08-01', 'time': '16:00:00', 'name': 'Durian Tasting'},{'date': '2022-09-15', 'time': '15:00:00', 'name': 'Densuke Tasting'}]
 
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
@@ -54,7 +54,7 @@ def get_reservations():
 
     for res in RESERVATIONS:
         if res['date'] == date:
-            data.append({'date': res['date'], 'name': res['name']})
+            data.append({'date': res['date'], 'time': res['time'], 'name': res['name']})
             
     return render_template('reservations.html', data=data)
 
@@ -67,7 +67,7 @@ def create_reservation():
     res = request.form.get('reservation')
     info = res.split(',')
 
-    reservation = Reservation.create_rez(user_id, info[0], info[1])
+    reservation = Reservation.create_rez(user_id, info[0], info[1], info[2])
     db.session.add(reservation)
     db.session.commit()
     
@@ -100,4 +100,4 @@ def return_home():
 
 if __name__ == '__main__':
     connect_to_db(app)
-    app.run (host='0.0.0.0')
+    app.run (debug=True, host='0.0.0.0')

@@ -9,6 +9,29 @@ footer {
     text-align: center;
     background:rgb(226, 226, 226);
   }
+
+  .image {
+    background-image: url("../img/melon2.jpg");
+    height: 250px;
+    background-position: center;
+    opacity: 0.8;
+    padding: 30px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+  }
+
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header {
+    padding-top: 50px;
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    text-align: center;
+  }
 /* 
 #calendar {
     width: 600px;

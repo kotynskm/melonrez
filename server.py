@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 from random import choice
 import json
 
-RESERVATIONS = [{'date': '2022-07-26', 'name': 'Cantaloupe Tasting'}, {'date': '2022-08-26', 'name': 'Watermelon Tasting'}]
+RESERVATIONS = [{'date': '2022-07-26', 'name': 'Cantaloupe Tasting'}, {'date': '2022-08-26', 'name': 'Watermelon Tasting'},
+{'date': '2022-08-01', 'name': 'Durian Tasting'},{'date': '2022-09-15', 'name': 'Densuke Tasting'}]
 
 app = Flask(__name__)
 app.secret_key = 'SECRET_KEY'
@@ -89,6 +90,12 @@ def display_reservations():
     
     return jsonify(reservations)
 
+# --- go back to homepage ---
+@app.route('/home')
+def return_home():
+    """ Return to the homepage. """
+
+    return redirect('/homepage')
 
 
 if __name__ == '__main__':

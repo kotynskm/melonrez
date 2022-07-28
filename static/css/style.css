@@ -4,7 +4,8 @@ footer {
     bottom:0px;
     height:30px;
     width:100%;
-    padding: 20px;
+    padding: 40px;
+    padding-top: 20px;
     text-align: center;
     background:rgb(226, 226, 226);
   }

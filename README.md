@@ -1,6 +1,6 @@
 # Melon Reservation
 
----
+## <img src="/static/img/melon.png">
 
 # Project Overview
 
